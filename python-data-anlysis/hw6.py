@@ -28,20 +28,16 @@ indices_train, indices_test = train_test_split(indices, random_state=1, test_siz
 # only add random noise to the test set
 y[indices_train] += np.random.random(size = len(indices_train))
 
-# can you see how some data is not noisy while the test data is noisy?
-#plt.plot(x, z)
-#plt.scatter(x, y)
-
 
 
 X = np.reshape(x, (len(x), 1))
 X_train, X_test, y_train, y_test = X[indices_train], X[indices_test], y[indices_train], y[indices_test]
 
-# TODO: This is a default MLPRegressor, use the hyperparameters to improve performance
+# Default MLPRegressor
 regr = MLPRegressor(alpha = 0, learning_rate_init = .0001, max_iter = 10000000, activation = 'tanh', hidden_layer_sizes = (8, 8), tol = .0000000001)
 regr.fit(X_train, y_train)
 
-# TODO: add code to get training and testing error for comparison
+# get training and testing error for comparison
 y_pred = regr.predict(X_train)
 y_predT = regr.predict(X_test)
 train_mse = mean_squared_error(y_train, y_pred)
@@ -70,8 +66,6 @@ dftest = pd.read_parquet("hf://datasets/stanfordnlp/imdb/" + splits["test"])
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # Example of getting sentence embeddings
-# Embedding is a fancy term for vector representations of text that we get from language models
-# The sentences to encode
 
 five = pd.DataFrame()
 seven = pd.DataFrame()
